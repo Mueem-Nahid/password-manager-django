@@ -1,0 +1,9 @@
+class Config:
+    SECRET_KEY = 'APP_SECRET_KEY'
+
+    # DB
+    DB_NAME = 'DB_NAME'
+    DB_USER = 'DB_USER'
+    DB_PASSWORD = 'DB_PASSWORD'
+    DB_HOST = 'DB_HOST'
+    PORT = 'PORT'

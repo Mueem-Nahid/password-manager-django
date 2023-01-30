@@ -1,0 +1,57 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                         class="img-fluid" alt="Phone image">
+                </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <form method='POST'>
+                        {% csrf_token %}
+
+                        <!-- Username -->
+                        <div class="form-floating mb-4">
+                            {{ form.username }}
+                            <label for="floatingInput">Username</label>
+                        </div>
+                        <div class="text-danger my-3">{{ form.username.errors }}</div>
+
+                        <!-- Email input -->
+                        <div class="form-floating mb-4">
+                            {{ form.email }}
+                            <label for="floatingInput">Email address</label>
+                        </div>
+                        <div class="text-danger my-3">{{ form.email.errors }}</div>
+
+                        <!-- Password input -->
+                        <div class="form-floating mb-4">
+                            {{ form.password1 }}
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        <div class="text-danger my-3">{{ form.password1.errors }}</div>
+
+                        <!-- Confirm Password input -->
+                        <div class="form-floating mb-4">
+                            {{ form.password2 }}
+                            <label for="confirmfloatingPassword">Confirm Password</label>
+                        </div>
+                        <div class="text-danger my-3">{{ form.password2.errors }}</div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                        </div>
+                        <a href="{% url 'index' %}">Sign in</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

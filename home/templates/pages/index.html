@@ -1,0 +1,57 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block content %}
+
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+                         class="img-fluid" alt="Phone image">
+                </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                                <div class="text-danger mb-3">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <!-- Email input -->
+                        <div class="form-floating mb-4">
+                            {{ form.username }}
+                            <label for="floatingInput">Username</label>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-floating mb-4">
+                            {{ form.password }}
+                            <label for="floatingPassword">Password</label>
+                        </div>
+
+                        <div class="d-flex justify-content-around align-items-center mb-4">
+                            <!-- Checkbox -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked/>
+                                <label class="form-check-label" for="form1Example3"> Remember me </label>
+                            </div>
+                            <a href="#!">Forgot password?</a>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                        </div>
+                        <a href="{% url 'register-page' %}">Sign Up</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

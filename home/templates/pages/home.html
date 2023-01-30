@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <section id="hero" class="hero d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center">
+                    <h1>Welcome to your password manager app</h1>
+                    <h2>Manage your all passwords from one place. Secure, fast and useful.</h2>
+                    <div class="d-flex gap-2">
+                        <div class="text-center text-lg-start">
+                            <a href="{% url 'add-password' %}"
+                               class="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
+                                <span>Add new password</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="text-center text-lg-start">
+                            <a href="{% url 'all-passwords' %}"
+                               class="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
+                                <span>View all</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-img">
+                    <img class="img-fluid" alt="home-img" src={% static '/assets/img/Vault-rafiki.svg' %}>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
