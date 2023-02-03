@@ -11,5 +11,5 @@ urlpatterns = [
 
     #  user passwords
     path('add-password/', views.add_new_password, name="add-password"),
-    path('all-passwords/', views.all_passwords, name="all-passwords")
+    path('all-passwords/', views.manage_passwords, name="manage-passwords")
 ]

@@ -90,7 +90,7 @@ def add_new_password(request):
 
 # all passwords
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def all_passwords(request):
+def manage_passwords(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % ('/', request.path))
     logged_in_user = request.user
@@ -106,6 +106,6 @@ def all_passwords(request):
     }
     print(password_obj)
     if not user_passwords:
-        return render(request, 'pages/all-passwords.html',
+        return render(request, 'pages/manage-passwords.html',
                       {'no_password': "No password available. Please add password."})
-    return render(request, 'pages/all-passwords.html', {'all_passwords': password_obj})
+    return render(request, 'pages/manage-passwords.html', {'all_passwords': password_obj})
