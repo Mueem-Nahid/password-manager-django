@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView, PasswordResetConfirmView
-from home.forms import RegistrationForm, LoginForm
+from home.forms import RegistrationForm, LoginForm, UpdatePasswordForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
@@ -94,7 +94,6 @@ def manage_passwords(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % ('/', request.path))
     logged_in_user = request.user
-    print("logged_in_user", logged_in_user)
     user_passwords = UserPassword.objects.filter(user=logged_in_user).order_by('-date_created')
     web_app = user_passwords.filter(application_type='Website')
     desktop_app = user_passwords.filter(application_type='Desktop application')
@@ -109,3 +108,20 @@ def manage_passwords(request):
         return render(request, 'pages/manage-passwords.html',
                       {'no_password': "No password available. Please add password."})
     return render(request, 'pages/manage-passwords.html', {'all_passwords': password_obj})
+
+
+# edit password
+def edit_password(request, pk):
+    user_password = UserPassword.objects.get(id=pk)
+    form = UpdatePasswordForm(instance=user_password)
+    if request.method == 'POST':
+        form = UpdatePasswordForm(request.POST, instance=user_password)
+        # breakpoint()
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Password updated.")
+            redirect(request.path)
+        else:
+            print(form.errors)
+    context = {'form': form}
+    return render(request, 'pages/edit-password.html', context)
