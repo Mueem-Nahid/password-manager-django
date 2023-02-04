@@ -6,7 +6,9 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_control
+from django.contrib.auth.hashers import make_password
 
+from home.encrypt_util import encrypt
 from home.forms import RegistrationForm, LoginForm, UpdatePasswordForm
 from home.models import UserPassword
 
@@ -64,7 +66,7 @@ def add_new_password(request):
     if request.method == 'POST':
         try:
             username = request.POST['username']
-            password = request.POST['password']
+            password = encrypt(request.POST['password'])
             application_type = request.POST['application_type']
             if application_type == 'Website':
                 website_name = request.POST['website_name']

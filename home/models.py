@@ -6,7 +6,7 @@ User = get_user_model()
 
 class UserPassword(models.Model):
     username = models.CharField(max_length=100)
-    password = models.CharField(max_length=50)
+    password = models.CharField(max_length=500)
     application_type = models.CharField(max_length=30)
     website_name = models.CharField(max_length=30, blank=True)
     website_url = models.CharField(max_length=100, blank=True)
