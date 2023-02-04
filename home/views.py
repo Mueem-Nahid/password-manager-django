@@ -24,6 +24,12 @@ class UserLoginView(LoginView):
     template_name = 'pages/index.html'
 
 
+def user_login_view(request):
+    if request.user.is_authenticated:
+        return redirect('/home')
+    return UserLoginView.as_view()(request)
+
+
 # register new user
 def register_page(request):
     if request.method == 'POST':
