@@ -27,14 +27,21 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <a class="navbar-brand" href="{% url 'home' %}">
                     <img src={% static '/assets/img/icon/logo.png' %} alt="vault" width="60" height="60"/>
-                </a><a class="navbar-brand">Password Manager</a>
+                </a><a class="navbar-brand" href="{% url 'home' %}">Password Manager</a>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/add-password/' %}active{% endif %}" aria-current="page" href="{% url 'add-password' %}">Add password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/manage-passwords/' %}active{% endif %}" aria-current="page" href="{% url 'manage-passwords' %}">Manage passwords</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/register/' %}active{% endif %}" href="{% url 'register-page' %}">Register</a>
                         </li>
                     {% endif %}
                 </ul>
