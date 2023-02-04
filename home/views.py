@@ -6,9 +6,8 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_control
-from django.contrib.auth.hashers import make_password
 
-from home.encrypt_util import encrypt
+from home.encrypt_util import encrypt, decrypt
 from home.forms import RegistrationForm, LoginForm, UpdatePasswordForm
 from home.models import UserPassword
 
@@ -98,17 +97,22 @@ def edit_password(request, pk):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % ('/', request.path))
     user_password = UserPassword.objects.get(id=pk)
+    user_password.password = decrypt(user_password.password)
     form = UpdatePasswordForm(instance=user_password)
+
     if request.method == 'POST':
         if 'delete' in request.POST:
             # delete password
             user_password.delete()
             return redirect('/manage-passwords')
         form = UpdatePasswordForm(request.POST, instance=user_password)
+
         if form.is_valid():
             try:
+                user_password.password = encrypt(user_password.password)
                 form.save()
                 messages.success(request, "Password updated.")
+                user_password.password = decrypt(user_password.password)
                 return HttpResponseRedirect(request.path)
             except ValidationError as e:
                 form.add_error(None, e)
