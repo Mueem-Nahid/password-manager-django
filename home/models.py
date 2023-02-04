@@ -16,6 +16,3 @@ class UserPassword(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_last_updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
-
-    def __str__(self):
-        return self.website_name

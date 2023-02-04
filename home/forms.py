@@ -49,7 +49,7 @@ class LoginForm(AuthenticationForm):
 class UpdatePasswordForm(forms.ModelForm):
     class Meta:
         model = UserPassword
-        fields = ['username', 'password', 'application_type', 'website_name', 'website_url', 'application_name',
+        fields = ['id', 'username', 'password', 'application_type', 'website_name', 'website_url', 'application_name',
                   'game_name', 'game_developer']
 
         widgets = {

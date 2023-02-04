@@ -114,6 +114,10 @@ def edit_password(request, pk):
     user_password = UserPassword.objects.get(id=pk)
     form = UpdatePasswordForm(instance=user_password)
     if request.method == 'POST':
+        if 'delete' in request.POST:
+            # delete password
+            user_password.delete()
+            return redirect('/manage-passwords')
         form = UpdatePasswordForm(request.POST, instance=user_password)
         if form.is_valid():
             try:
