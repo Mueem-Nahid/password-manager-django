@@ -95,11 +95,16 @@ def add_new_password(request):
 def manage_passwords(request):
     if not request.user.is_authenticated:
         return redirect('%s?next=%s' % ('/', request.path))
+    sort_order = 'asc'
     logged_in_user = request.user
-    user_passwords = UserPassword.objects.filter(user=logged_in_user).order_by('-date_created')
+    user_passwords = UserPassword.objects.filter(user=logged_in_user)
+
     web_app = user_passwords.filter(application_type='Website')
     desktop_app = user_passwords.filter(application_type='Desktop application')
     game = user_passwords.filter(application_type='Game')
+    if request.GET.get('sort_order'):
+        sort_order = request.GET.get('sort_order', 'desc')
+        web_app = web_app.order_by('-date_created' if sort_order == 'desc' else 'date_created')
     password_obj = {
         'web_app': web_app,
         'desktop_app': desktop_app,
@@ -108,7 +113,7 @@ def manage_passwords(request):
     if not user_passwords:
         return render(request, 'pages/manage-passwords.html',
                       {'no_password': "No password available. Please add password."})
-    return render(request, 'pages/manage-passwords.html', {'all_passwords': password_obj})
+    return render(request, 'pages/manage-passwords.html', {'all_passwords': password_obj, 'sort_order': sort_order})
 
 
 # edit password
