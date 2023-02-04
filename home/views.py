@@ -36,7 +36,6 @@ def register_page(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            print("Account created successfully!")
             form.save()
             return redirect('/')
         else:
@@ -70,20 +69,17 @@ def add_new_password(request):
             if application_type == 'Website':
                 website_name = request.POST['website_name']
                 website_url = request.POST['website_url']
-                print(username, password, application_type, website_name, website_url)
                 UserPassword.objects.create(username=username, password=password, application_type=application_type,
                                             website_name=website_name, website_url=website_url, user=request.user)
                 messages.success(request, f"New password added for {website_name}")
             elif application_type == 'Desktop application':
                 application_name = request.POST['application_name']
-                print(username, password, application_type, application_name)
                 UserPassword.objects.create(username=username, password=password, application_type=application_type,
                                             application_name=application_name, user=request.user)
                 messages.success(request, f"New password added for {application_name}.")
             elif application_type == 'Game':
                 game_name = request.POST['game_name']
                 game_developer = request.POST['game_developer']
-                print(username, password, application_type, game_name, game_developer)
                 UserPassword.objects.create(username=username, password=password, application_type=application_type,
                                             game_name=game_name, game_developer=game_developer, user=request.user)
                 messages.success(request, f"New password added for {game_name}.")
@@ -109,7 +105,6 @@ def manage_passwords(request):
         'desktop_app': desktop_app,
         'game': game
     }
-    print(password_obj)
     if not user_passwords:
         return render(request, 'pages/manage-passwords.html',
                       {'no_password': "No password available. Please add password."})
