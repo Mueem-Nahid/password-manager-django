@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_control
@@ -116,7 +117,10 @@ def manage_passwords(request):
 
 
 # edit password
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def edit_password(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % ('/', request.path))
     user_password = UserPassword.objects.get(id=pk)
     form = UpdatePasswordForm(instance=user_password)
     if request.method == 'POST':
@@ -135,3 +139,23 @@ def edit_password(request, pk):
 
     context = {'form': form}
     return render(request, 'pages/edit-password.html', context)
+
+
+# search password
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def search(request):
+    if not request.user.is_authenticated:
+        return redirect('%s?next=%s' % ('/', request.path))
+    logged_in_user = request.user
+    logged_in_user_pws = UserPassword.objects.filter(user=logged_in_user)
+    if request.method == "POST":
+        searched = request.POST.get("password_search", "")
+        users_pws = logged_in_user_pws.values()
+        if users_pws.filter(Q(website_name=searched) | Q(application_name=searched) | Q(game_name=searched)):
+            user_pw = UserPassword.objects.filter(
+                Q(website_name=searched) | Q(application_name=searched) | Q(game_name=searched)).values()
+            return render(request, "pages/search.html", {'passwords': user_pw})
+        else:
+            messages.error(request, "---YOUR SEARCH RESULT DOESN'T EXIST---")
+
+    return render(request, "pages/search.html", {'pws': logged_in_user_pws})

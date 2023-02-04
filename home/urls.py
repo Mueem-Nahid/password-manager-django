@@ -14,4 +14,5 @@ urlpatterns = [
     path('add-password/', views.add_new_password, name="add-password"),
     path('manage-passwords/', views.manage_passwords, name="manage-passwords"),
     path('edit-password/<str:pk>/', views.edit_password, name="edit-password"),
+    path('search/', views.search, name='search'),
 ]

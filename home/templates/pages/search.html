@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="container">
+        <div class="d-flex h-100 w-100 mt-2 mb-5">
+            <div class="align-self-center mx-auto">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="search" class="form-control rounded" name="password_search" placeholder="Search"
+                               aria-label="Search"
+                               aria-describedby="search-addon"/>
+                        <button type="submit" class="btn btn-outline-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if messages %}
+            <div class="w-50 mx-auto">
+                <div class="alert alert-primary text-center" role="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if  passwords %}
+            <div class="table-responsive">
+                <table class="table table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Application Type</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    {% for password in passwords %}
+                        <tbody>
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ password.username }}</td>
+                            <td>{{ password.password }}</td>
+                            <td>{{ password.application_type }}</td>
+                            <td>
+                                {% if password.website_name %}
+                                    {{ password.website_name }}
+                                {% elif password.game_name %}
+                                    {{ password.game_name }}
+                                {% elif password.application_name %}
+                                    {{ password.application_name }}
+                                {% endif %}
+                            </td>
+                            <td><a href="{% url 'edit-password' password.id %}">Edit</a></td>
+                        </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            <div class="w-50 mx-auto">
+                <img src={% static '/assets/img/search.svg' %} alt="no-data">
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
