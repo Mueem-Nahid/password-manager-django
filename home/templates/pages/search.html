@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load decrypt_tags %}
 
 {% block content %}
     <section class="container">
@@ -45,7 +46,11 @@
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ password.username }}</td>
-                            <td>{{ password.password }}</td>
+                            {# <td>{{ password.password }}</td>#}
+                            <td>
+                                <input class="form-control w-50" type="password"
+                                       value="{{ password.password|decrypt_template_tag }}" disabled readonly/>
+                            </td>
                             <td>{{ password.application_type }}</td>
                             <td>
                                 {% if password.website_name %}
