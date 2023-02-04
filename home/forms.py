@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from home.models import UserPassword
@@ -46,12 +47,6 @@ class LoginForm(AuthenticationForm):
 
 
 class UpdatePasswordForm(forms.ModelForm):
-    # website_name = forms.CharField(required=False)
-    # website_url = forms.CharField(required=False)
-    # application_name = forms.CharField(required=False)
-    # game_name = forms.CharField(required=False)
-    # game_developer = forms.CharField(required=False)
-
     class Meta:
         model = UserPassword
         fields = ['username', 'password', 'application_type', 'website_name', 'website_url', 'application_name',
@@ -92,3 +87,23 @@ class UpdatePasswordForm(forms.ModelForm):
                 'placeholder': 'game developer',
             }),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        application_type = cleaned_data.get('application_type')
+        application_name = cleaned_data.get('application_name')
+        website_name = cleaned_data.get('website_name')
+        website_url = cleaned_data.get('website_url')
+        game_name = cleaned_data.get('game_name')
+
+        if application_type == 'Website' and not website_name:
+            raise ValidationError({'website_name': 'Website name is required.'})
+
+        if application_type == 'Website' and not website_url:
+            raise ValidationError({'website_url': 'Website url is required.'})
+
+        if application_type == 'Desktop application' and not application_name:
+            raise ValidationError({'application_name': 'Application name is required.'})
+
+        if application_type == 'Game' and not game_name:
+            raise ValidationError({'game_name': 'Game name is required.'})
