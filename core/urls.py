@@ -14,7 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
+
+# Add this it change the header of the admin panel.
+admin.site.site_header = 'Password Manager Administration'
 
 urlpatterns = [
     path('', include('home.urls')),
