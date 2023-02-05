@@ -3,13 +3,14 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.core.exceptions import ValidationError
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import cache_control
 
 from home.encrypt_util import encrypt, decrypt
 from home.forms import RegistrationForm, LoginForm, UpdatePasswordForm
 from home.models import UserPassword
+from home.utils import generate_random_password
 
 
 # home page
@@ -156,3 +157,9 @@ def manage_passwords(request):
         return render(request, 'pages/manage-passwords.html',
                       {'no_password': "No password available. Please add password."})
     return render(request, 'pages/manage-passwords.html', {'all_passwords': user_passwords, 'sort_order': sort_order})
+
+
+# generate random password
+def generate_password(request):
+    password = generate_random_password()
+    return JsonResponse({'password': password})

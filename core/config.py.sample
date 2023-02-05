@@ -7,3 +7,6 @@ class Config:
     DB_PASSWORD = 'DB_PASSWORD'
     DB_HOST = 'DB_HOST'
     PORT = 'PORT'
+
+    # ENCRYPT_KEY
+    ENCRYPT_KEY = '***'

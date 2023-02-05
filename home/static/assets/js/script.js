@@ -53,3 +53,13 @@ function addFields(val) {
         container.appendChild(elChild);
     }
 };
+
+function generatePasswordHandler() {
+    $.ajax({
+        type: 'GET',
+        url: '/generate-password/',
+        success: function (data) {
+            document.getElementsByName('password')[0].value = data.password;
+        }
+    });
+};
