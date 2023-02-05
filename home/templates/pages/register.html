@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -6,10 +7,12 @@
         <div class="container py-5 h-100">
             <div class="row d-flex align-items-center justify-content-center h-100">
                 <div class="col-md-8 col-lg-7 col-xl-6">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                         class="img-fluid" alt="Phone image">
+                    <img src={% static '/assets/img/login.svg' %} class="img-fluid" alt="Phone image">
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <div class="d-flex flex-column justify-content-center mb-4 login-header">
+                        <h2>New to password manager app? Please sign up and maintain your passwords easily.</h2>
+                    </div>
                     <form method='POST'>
                         {% csrf_token %}
 
@@ -42,13 +45,13 @@
                         <div class="text-danger my-3">{{ form.password2.errors }}</div>
 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+                        <button type="submit" class="btn btn-success btn-lg w-100">Sign up</button>
 
-                        <div class="divider d-flex align-items-center my-4">
-                            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                        <div class="divider d-flex align-items-center my-3">
+                            <p class="text-center fw-bold mx-3 mb-0 text-muted">Already have an account?</p>
                         </div>
-                        <a href="{% url 'index' %}">Sign in</a>
                     </form>
+                    <a href="{% url 'index' %}" class="btn btn-primary btn-lg w-100" role="button">Sign In</a>
                 </div>
             </div>
         </div>
