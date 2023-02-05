@@ -38,7 +38,7 @@ def register_page(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            messages.success(request, "Account registered successfully. Please log in to your account.")
         else:
             print("Registration failed!")
     else:

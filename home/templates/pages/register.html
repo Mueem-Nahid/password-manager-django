@@ -15,7 +15,13 @@
                     </div>
                     <form method='POST'>
                         {% csrf_token %}
-
+                        {% if messages %}
+                            <div class="alert alert-primary" role="alert">
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                         <!-- Username -->
                         <div class="form-floating mb-4">
                             {{ form.username }}
