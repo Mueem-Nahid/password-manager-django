@@ -33,10 +33,10 @@
                 <table class="table table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col" class="d-none d-md-block">#</th>
                         <th scope="col">Username</th>
                         <th scope="col">Password</th>
-                        <th scope="col">Application Type</th>
+                        <th scope="col" class="text-nowrap">Application Type</th>
                         <th scope="col">Name</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -44,10 +44,10 @@
                     {% for password in passwords %}
                         <tbody>
                         <tr>
-                            <td>{{ forloop.counter }}</td>
+                            <td class="d-none d-md-block">{{ forloop.counter }}</td>
                             <td>{{ password.username }}</td>
                             <td>
-                                <div class="input-group input-group-sm w-50">
+                                <div class="input-group input-group-sm">
                                     <input class="form-control" type="password" id={{ forloop.counter }}
                                             value="{{ password.password|decrypt_template_tag }}" disabled readonly>
                                     <div class="input-group-append">
