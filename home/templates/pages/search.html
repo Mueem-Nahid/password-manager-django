@@ -46,10 +46,18 @@
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ password.username }}</td>
-                            {# <td>{{ password.password }}</td>#}
                             <td>
-                                <input class="form-control w-50" type="password"
-                                       value="{{ password.password|decrypt_template_tag }}" disabled readonly/>
+                                <div class="input-group input-group-sm w-50">
+                                    <input class="form-control" type="password" id={{ forloop.counter }}
+                                            value="{{ password.password|decrypt_template_tag }}" disabled readonly>
+                                    <div class="input-group-append">
+                                        <button onclick="toggleView({{ forloop.counter }})"
+                                                class="btn btn-sm btn-outline-secondary" type="button"
+                                                id="view-password">
+                                            <i id="icon-{{ forloop.counter }}" class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </td>
                             <td>{{ password.application_type }}</td>
                             <td>
