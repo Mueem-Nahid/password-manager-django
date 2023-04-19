@@ -70,6 +70,8 @@ Enjoy!!! If you find any issue please open the issue.
  
 ![enter image description here](https://i.ibb.co/wJRH2wn/home.png)
 
+![enter image description here](https://i.ibb.co/h2V4h43/password-6.png)
+
 ![enter image description here](https://i.ibb.co/s5n19Mr/namge.png)
 
 ![enter image description here](https://i.ibb.co/fDRjZf9/search.png)
