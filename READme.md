@@ -74,5 +74,7 @@ Enjoy!!! If you find any issue please open the issue.
 
 ![enter image description here](https://i.ibb.co/s5n19Mr/namge.png)
 
+![enter image description here](https://i.ibb.co/vD6TjRw/edit-password.png)
+
 ![enter image description here](https://i.ibb.co/fDRjZf9/search.png)
 
