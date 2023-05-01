@@ -1,6 +1,8 @@
 class Config:
     SECRET_KEY = 'APP_SECRET_KEY'
 
+    DEBUG_MODE = True
+
     # DB
     DB_NAME = 'DB_NAME'
     DB_USER = 'DB_USER'
