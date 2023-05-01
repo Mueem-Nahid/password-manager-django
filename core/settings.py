@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
+import ast
 import os
 from pathlib import Path
 
@@ -131,4 +133,4 @@ LOGIN_REDIRECT_URL = 'home/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'home/static'), ]
 
-ENCRYPT_KEY = os.getenv('ENCRYPT_KEY')
+ENCRYPT_KEY = ast.literal_eval(os.getenv('ENCRYPT_KEY'))
