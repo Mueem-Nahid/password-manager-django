@@ -38,7 +38,7 @@ Now run this command in the terminal to install the required libraries:
 
     pip install -r requirements.txt
 
-Now copy and paste `config.py.sample` inside the core app as `config.py` and add all the credentials like your app secret key, DB information and ENCRYPT_KEY. 
+Now copy and paste `.env.sample` inside the core app as `.env` and add all the credentials like your app secret key, DB information and ENCRYPT_KEY. 
 [To generate  ENCRYPT_KEY](https://pythonguides.com/encrypt-and-decrypt-password-in-django/)  , run this command in the terminal:
 
     from cryptography.fernet import Fernet
